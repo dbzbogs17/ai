@@ -4,7 +4,6 @@ public class Environment {
     public static final Action SUCK_DIRT = new DynamicAction("SUCK");
     public static final String LOCATION_A = "A";
     public static final String LOCATION_B = "B";
-
     public enum LocationState {
         CLEAN, DIRTY
     }
@@ -12,21 +11,17 @@ public class Environment {
     private EnvironmentState envState;
     private boolean isDone = false;// all squares are CLEAN
     private Agent agent = null;
-
     public Environment(LocationState locAState, LocationState locBState) {
         envState = new EnvironmentState(locAState, locBState);
     }
-
     // add an agent into the enviroment
     public void addAgent(Agent agent, String location) {
         this.agent = agent;
         envState.setAgentLocation(location);
     }
-
     public EnvironmentState getCurrentState() {
         return this.envState;
     }
-
     // Update enviroment state when agent do an action
     public EnvironmentState executeAction(Action action) {
         String agentLocation = envState.getAgentLocation();
@@ -36,7 +31,6 @@ public class Environment {
         }
         return envState;
     }
-
     // get percept<AgentLocation, LocationState> at the current location where agent
     // is in.
     public Percept getPerceptSeenBy() {
@@ -44,7 +38,6 @@ public class Environment {
         LocationState state = envState.getLocationState(agentLocation);
         return new Percept(agentLocation, state);
     }
-
     public void step() {
         envState.display();
         String agentLocation = this.envState.getAgentLocation();
